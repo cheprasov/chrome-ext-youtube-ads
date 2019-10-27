@@ -22,7 +22,8 @@ function AdCeElement() {
 function AdVideoClose() {
     const video = document.querySelector('.html5-video-player.ad-showing .video-stream.html5-main-video');
     if (video) {
-        video.currentTime = video.duration;
+        const time = video.currentTime;
+        video.currentTime = isFinite(time) ? 60 : time;
     }
 }
 
