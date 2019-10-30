@@ -27,6 +27,13 @@ function AdVideoClose() {
     }
 }
 
+function AdConfirmDialogRenderYes() {
+    const button = document.querySelector('.yt-confirm-dialog-renderer .yt-button-renderer');
+    if (button) {
+        button.click();
+    }
+}
+
 
 if (!window.___ytad) {
     window.___ytad = true;
@@ -36,5 +43,6 @@ if (!window.___ytad) {
         AdOverlaySkip();
         AdCeElement();
         AdVideoClose();
+        AdConfirmDialogRenderYes();
     }, 500);
 }
