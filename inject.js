@@ -28,6 +28,17 @@ function AdVideoClose() {
 }
 
 function AdConfirmDialogRenderYes() {
+    const dialog = document.querySelector('.ytd-popup-container[role=dialog]');
+    if (!dialog) {
+        return;
+    }
+    const text = (dialog.innerText || '').toLowerCase();
+    if (!text) {
+        return;
+    }
+    if (text.indexOf('video paused') === -1) {
+        return;
+    }
     const button = document.querySelector('.yt-confirm-dialog-renderer .yt-button-renderer');
     if (button) {
         button.click();
