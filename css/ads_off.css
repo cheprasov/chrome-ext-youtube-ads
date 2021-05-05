@@ -1,0 +1,30 @@
+
+/*[id*="-ad-"],*/
+/*[id*="-ad-"],*/
+/*[class*="-ad-"],*/
+/*[class$="-ad"] {*/
+/*    display: none;*/
+/*}*/
+
+.ytp-ce-element,
+#player-ads{
+    display: none;
+}
+
+.ytp-chrome-bottom {
+    opacity: 0;
+}
+
+.ytp-chrome-bottom:hover {
+    opacity: 1;
+    background-color: rgba(0,0,0,0.3);
+}
+
+.html5-video-player.ad-showing {
+    opacity: 0.25 !important;
+    transform: scale(0.1);
+}
+
+.ytp-ad-image-overlay {
+    opacity: 0 !important;
+}

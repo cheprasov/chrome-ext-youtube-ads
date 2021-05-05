@@ -1,29 +1,34 @@
 {
-  "name": "Youtube ads blocker",
-  "version": "1.0",
-  "description": "Youtube without ads",
-  "manifest_version": 2,
-  "permissions": [
-    "activeTab"
-  ],
-  "content_scripts": [
-    {
-      "all_frames": true,
-      "matches": [
-        "http://youtube.com/*",
-        "https://youtube.com/*",
-        "http://*.youtube.com/*",
-        "https://*.youtube.com/*"
-      ],
-      "match_about_blank": true,
-      "exclude_matches": [
-        "https://plus.google.com/hangouts/*",
-        "https://hangouts.google.com/*",
-        "https://meet.google.com/*",
-        "https://teamtreehouse.com/*",
-        "http://www.hitbox.tv/*"
-      ],
-      "js":  [ "inject.js" ]
-    }
-  ]
+    "name": "Youtube ads blocker",
+    "version": "1.0",
+    "description": "Youtube without ads",
+    "manifest_version": 2,
+    "permissions": [
+        "activeTab"
+    ],
+    "content_scripts": [
+        {
+            "all_frames": true,
+            "matches": [
+                "http://youtube.com/*",
+                "https://youtube.com/*",
+                "http://*.youtube.com/*",
+                "https://*.youtube.com/*"
+            ],
+            "match_about_blank": true,
+            "exclude_matches": [
+                "https://plus.google.com/hangouts/*",
+                "https://hangouts.google.com/*",
+                "https://meet.google.com/*",
+                "https://teamtreehouse.com/*",
+                "http://www.hitbox.tv/*"
+            ],
+            "js": [
+                "inject.js"
+            ]
+        }
+    ],
+    "web_accessible_resources": [
+        "/css/ads_off.css"
+    ]
 }

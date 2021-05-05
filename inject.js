@@ -1,3 +1,9 @@
+const link = document.createElement('link');
+link.setAttribute('rel', 'stylesheet');
+link.setAttribute('type', 'text/css');
+link.setAttribute('href', chrome.extension.getURL('/css/ads_off.css'));
+document.getElementsByTagName('head')[0].appendChild(link);
+
 function AdOverlayClose() {
     const button = document.querySelector('.ytp-ad-overlay-close-button');
     if (button) {
@@ -28,21 +34,51 @@ function AdVideoClose() {
 }
 
 function AdConfirmDialogRenderYes() {
-    const dialog = document.querySelector('.ytd-popup-container[role=dialog]');
-    if (!dialog) {
+    const dialogs = document.querySelectorAll('.ytd-popup-container[role=dialog]');
+    if (!dialogs) {
         return;
     }
-    const text = (dialog.innerText || '').toLowerCase();
-    if (!text) {
+    dialogs.forEach((dialog) => {
+        const text = (dialog.innerText || '').toLowerCase();
+        if (!text) {
+            return;
+        }
+        if (text.indexOf('video paused') === -1) {
+            return;
+        }
+        const button = dialog.querySelector('.yt-confirm-dialog-renderer .yt-button-renderer');
+        if (button) {
+            button.click();
+        }
+    });
+}
+
+function AdFirstGridItem() {
+    const div = document.querySelector('ytd-rich-item-renderer > div > ytd-display-ad-renderer');
+    if (!div) {
         return;
     }
-    if (text.indexOf('video paused') === -1) {
+    div.parentElement.parentElement.style.display = 'none';
+}
+
+function removeShadowOnVideoPause() {
+    const div = document.querySelector('.ytp-gradient-bottom');
+    if (!div) {
         return;
     }
-    const button = document.querySelector('.yt-confirm-dialog-renderer .yt-button-renderer');
-    if (button) {
-        button.click();
+    if (div.style.backgroundImage === 'none') {
+        return;
     }
+    div.style.backgroundImage = 'none';
+}
+
+function skipTrialButton() {
+    // <paper-button id="button" class="style-scope ytd-button-renderer style-text size-default" role="button" tabindex="0" animated="" elevation="0" aria-disabled="false" aria-label="Skip trial"><!--css-build:shady--><yt-formatted-string id="text" class="style-scope ytd-button-renderer style-text size-default">Skip trial</yt-formatted-string><paper-ripple class="style-scope paper-button"
+    const button = document.querySelector('[aria-label="Skip trial"]')
+    if (!button || !button.click) {
+        return;
+    }
+    button.click()
 }
 
 
@@ -55,5 +91,12 @@ if (!window.___ytad) {
         AdCeElement();
         AdVideoClose();
         AdConfirmDialogRenderYes();
+        AdFirstGridItem();
     }, 500);
+
+    setInterval(() => {
+        removeShadowOnVideoPause();
+        skipTrialButton();
+    }, 1000);
+
 }
